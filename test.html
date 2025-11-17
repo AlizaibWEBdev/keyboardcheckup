@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Keyboard Tester - Test Your Keyboard Keys | KeyboardCheckup</title>
+    <meta name="description"
+        content="Free online keyboard tester tool. Test every key on your keyboard - mechanical, laptop, wireless, or gaming. Check for ghosting, test typing speed, and verify all keys work properly.">
+    <meta name="keywords"
+        content="keyboard test online, keyboard tester, mechanical keyboard test, laptop keyboard test, wireless keyboard test, gaming keyboard test, typing test online, keyboard ghosting test, keyboard key tester, keyboard checker">
+    <meta name="author" content="KeyboardCheckup">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Online Keyboard Tester - Test Your Keyboard Keys">
+    <meta property="og:description"
+        content="Free online keyboard testing tool. Check all keys, test typing speed, and verify keyboard functionality.">
+    <meta property="og:url" content="https://keyboardcheckup.vercel.app/test.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://keyboardcheckup.vercel.app/keyboard-tester-og.jpg">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Online Keyboard Tester - Test Your Keyboard Keys">
+    <meta name="twitter:description"
+        content="Free online keyboard testing tool. Check all keys, test typing speed, and verify keyboard functionality.">
+    <meta name="twitter:image" content="https://keyboardcheckup.vercel.app/keyboard-tester-og.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://keyboardcheckup.vercel.app/test.html">
+
+
+    <!-- Favicon -->
+   <link rel="shortcut icon" href="favicon-32x32.png" type="image/x-icon">
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Online Keyboard Tester",
+      "description": "Free online keyboard testing tool to check all keys and verify keyboard functionality",
+      "url": "https://keyboardcheckup.vercel.app/test.html",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "KeyboardCheckup"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+  <style>
+            .header {
+                background: #1a1a24;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                position: sticky;
+                top: 0;
+                padding: 10px;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .header-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px 20px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+            }
+
+            .logo-icon {
+                font-size: 1.8rem;
+                margin-right: 10px;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+                font-weight: 700;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                color: #e0e0e0;
+            }
+
+            .nav-menu {
+                display: flex;
+                list-style: none;
+                gap: 30px;
+            }
+
+            .nav-link {
+                color: #e0e0e0;
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s;
+                position: relative;
+                padding: 5px 0;
+            }
+
+            .nav-link:hover {
+                color: #667eea;
+            }
+
+            .nav-link.active {
+                color: #667eea;
+            }
+
+            .nav-link.active::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            .mobile-toggle {
+                display: none;
+                background: none;
+                border: none;
+                color: #e0e0e0;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            @media (max-width: 768px) {
+                .nav-menu {
+                    position: fixed;
+                    top: 70px;
+                    left: 0;
+                    width: 100%;
+                    background: #1a1a24;
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 20px 0;
+                    gap: 15px;
+                    transform: translateY(-100%);
+                    opacity: 0;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                }
+
+                .nav-menu.active {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+
+                .mobile-toggle {
+                    display: block;
+                }
+            }
+        </style>
+
+        <script>
+            // Mobile menu toggle functionality
+            document.getElementById('mobileToggle').addEventListener('click', function () {
+                const navMenu = document.getElementById('navMenu');
+                navMenu.classList.toggle('active');
+
+                // Change icon based on menu state
+                this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+            });
+
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    const navMenu = document.getElementById('navMenu');
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        document.getElementById('mobileToggle').textContent = '☰';
+                    }
+                });
+            });
+
+            // Set active link based on current page
+            document.addEventListener('DOMContentLoaded', function () {
+                const currentPage = window.location.pathname.split('/').pop();
+                const navLinks = document.querySelectorAll('.nav-link');
+
+                navLinks.forEach(link => {
+                    const linkPage = link.getAttribute('href');
+                    if (linkPage === currentPage) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            });
+        </script>
+<body>
+    <header class="header" role="banner">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"></span>
+                <span class="logo-text">KeyboardCheckup</span>
+            </a>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+                ☰
+            </button>
+
+            <nav class="nav" role="navigation">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="test.html" class="nav-link">Keyboard Tester</a></li>
+                    <li><a href="typing-test.html" class="nav-link">Typing Test</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="container">
+
+
+      
+        <div class="center" style="text-align: center ;">
+            <h1>Keyboard Tester</h1>
+            <p class="subtitle">Test every key on your keyboard</p>
+
+        </div>
+        <br>
+        <br>
+        <main id="main-content" role="main">
+            <!-- Statistics Section -->
+            <section class="stats-bar" aria-labelledby="stats-heading">
+                <h2 id="stats-heading" class="visually-hidden">Keyboard Testing Statistics</h2>
+                <div class="stat-card">
+                    <div class="stat-label">Total Pressed</div>
+                    <div class="stat-value" id="totalPressed" aria-live="polite">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Unique Keys</div>
+                    <div class="stat-value" id="keysTested" aria-live="polite">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Last Key</div>
+                    <div class="stat-value" id="lastKey" style="font-size: clamp(1.2rem, 2.5vw, 1.8rem);"
+                        aria-live="polite">—</div>
+                </div>
+            </section>
+
+            <!-- Keyboard Visualization -->
+            <section class="keyboard-wrapper" aria-labelledby="keyboard-heading">
+                <h2 id="keyboard-heading" class="visually-hidden">Virtual Keyboard Display</h2>
+                <div class="keyboard-layout">
+                    <!-- Main Keyboard -->
+                    <div class="main-keyboard">
+                        <!-- Function Row -->
+                        <div class="key-row">
+                            <div class="key w-esc" data-key="Escape" aria-label="Escape key">Esc</div>
+                            <div class="fn-gap-large"></div>
+                            <div class="key w-fn" data-key="F1" aria-label="F1 key">F1</div>
+                            <div class="key w-fn" data-key="F2" aria-label="F2 key">F2</div>
+                            <div class="key w-fn" data-key="F3" aria-label="F3 key">F3</div>
+                            <div class="key w-fn" data-key="F4" aria-label="F4 key">F4</div>
+                            <div class="fn-gap-small"></div>
+                            <div class="key w-fn" data-key="F5" aria-label="F5 key">F5</div>
+                            <div class="key w-fn" data-key="F6" aria-label="F6 key">F6</div>
+                            <div class="key w-fn" data-key="F7" aria-label="F7 key">F7</div>
+                            <div class="key w-fn" data-key="F8" aria-label="F8 key">F8</div>
+                            <div class="fn-gap-small"></div>
+                            <div class="key w-fn" data-key="F9" aria-label="F9 key">F9</div>
+                            <div class="key w-fn" data-key="F10" aria-label="F10 key">F10</div>
+                            <div class="key w-fn" data-key="F11" aria-label="F11 key">F11</div>
+                            <div class="key w-fn" data-key="F12" aria-label="F12 key">F12</div>
+                        </div>
+
+                        <!-- Number Row -->
+                        <div class="key-row">
+                            <div class="key w-1" data-key="`" aria-label="Backtick and tilde key"><span
+                                    class="key-label">~</span><span class="key-sublabel">`</span></div>
+                            <div class="key w-1" data-key="1" aria-label="Number 1 and exclamation mark key"><span
+                                    class="key-label">!</span><span class="key-sublabel">1</span></div>
+                            <div class="key w-1" data-key="2" aria-label="Number 2 and at symbol key"><span
+                                    class="key-label">@</span><span class="key-sublabel">2</span></div>
+                            <div class="key w-1" data-key="3" aria-label="Number 3 and hash key"><span
+                                    class="key-label">#</span><span class="key-sublabel">3</span></div>
+                            <div class="key w-1" data-key="4" aria-label="Number 4 and dollar sign key"><span
+                                    class="key-label">$</span><span class="key-sublabel">4</span></div>
+                            <div class="key w-1" data-key="5" aria-label="Number 5 and percent key"><span
+                                    class="key-label">%</span><span class="key-sublabel">5</span></div>
+                            <div class="key w-1" data-key="6" aria-label="Number 6 and caret key"><span
+                                    class="key-label">^</span><span class="key-sublabel">6</span></div>
+                            <div class="key w-1" data-key="7" aria-label="Number 7 and ampersand key"><span
+                                    class="key-label">&</span><span class="key-sublabel">7</span></div>
+                            <div class="key w-1" data-key="8" aria-label="Number 8 and asterisk key"><span
+                                    class="key-label">*</span><span class="key-sublabel">8</span></div>
+                            <div class="key w-1" data-key="9" aria-label="Number 9 and opening parenthesis key"><span
+                                    class="key-label">(</span><span class="key-sublabel">9</span></div>
+                            <div class="key w-1" data-key="0" aria-label="Number 0 and closing parenthesis key"><span
+                                    class="key-label">)</span><span class="key-sublabel">0</span></div>
+                            <div class="key w-1" data-key="-" aria-label="Hyphen and underscore key"><span
+                                    class="key-label">_</span><span class="key-sublabel">-</span></div>
+                            <div class="key w-1" data-key="=" aria-label="Equals and plus key"><span
+                                    class="key-label">+</span><span class="key-sublabel">=</span></div>
+                            <div class="key w-2" data-key="Backspace" aria-label="Backspace key">←</div>
+                        </div>
+
+                        <!-- Tab Row -->
+                        <div class="key-row">
+                            <div class="key w-1u5" data-key="Tab" aria-label="Tab key">Tab</div>
+                            <div class="key w-1" data-key="q" aria-label="Q key">Q</div>
+                            <div class="key w-1" data-key="w" aria-label="W key">W</div>
+                            <div class="key w-1" data-key="e" aria-label="E key">E</div>
+                            <div class="key w-1" data-key="r" aria-label="R key">R</div>
+                            <div class="key w-1" data-key="t" aria-label="T key">T</div>
+                            <div class="key w-1" data-key="y" aria-label="Y key">Y</div>
+                            <div class="key w-1" data-key="u" aria-label="U key">U</div>
+                            <div class="key w-1" data-key="i" aria-label="I key">I</div>
+                            <div class="key w-1" data-key="o" aria-label="O key">O</div>
+                            <div class="key w-1" data-key="p" aria-label="P key">P</div>
+                            <div class="key w-1" data-key="[" aria-label="Opening bracket and brace key"><span
+                                    class="key-label">{</span><span class="key-sublabel">[</span></div>
+                            <div class="key w-1" data-key="]" aria-label="Closing bracket and brace key"><span
+                                    class="key-label">}</span><span class="key-sublabel">]</span></div>
+                            <div class="key w-1u5" data-key="Backslash" aria-label="Backslash and pipe key"><span
+                                    class="key-label">|</span><span class="key-sublabel">\</span></div>
+                        </div>
+
+                        <!-- Caps Row -->
+                        <div class="key-row">
+                            <div class="key w-1u75" data-key="CapsLock" aria-label="Caps Lock key">Caps</div>
+                            <div class="key w-1" data-key="a" aria-label="A key">A</div>
+                            <div class="key w-1" data-key="s" aria-label="S key">S</div>
+                            <div class="key w-1" data-key="d" aria-label="D key">D</div>
+                            <div class="key w-1" data-key="f" aria-label="F key">F</div>
+                            <div class="key w-1" data-key="g" aria-label="G key">G</div>
+                            <div class="key w-1" data-key="h" aria-label="H key">H</div>
+                            <div class="key w-1" data-key="j" aria-label="J key">J</div>
+                            <div class="key w-1" data-key="k" aria-label="K key">K</div>
+                            <div class="key w-1" data-key="l" aria-label="L key">L</div>
+                            <div class="key w-1" data-key=";" aria-label="Semicolon and colon key"><span
+                                    class="key-label">:</span><span class="key-sublabel">;</span></div>
+                            <div class="key w-1" data-key="'" aria-label="Apostrophe and quote key"><span
+                                    class="key-label">"</span><span class="key-sublabel">'</span></div>
+                            <div class="key w-2u25" data-key="Enter" aria-label="Enter key">Enter</div>
+                        </div>
+
+                        <!-- Shift Row -->
+                        <div class="key-row">
+                            <div class="key w-2u25" data-key="ShiftLeft" aria-label="Left Shift key">Shift</div>
+                            <div class="key w-1" data-key="z" aria-label="Z key">Z</div>
+                            <div class="key w-1" data-key="x" aria-label="X key">X</div>
+                            <div class="key w-1" data-key="c" aria-label="C key">C</div>
+                            <div class="key w-1" data-key="v" aria-label="V key">V</div>
+                            <div class="key w-1" data-key="b" aria-label="B key">B</div>
+                            <div class="key w-1" data-key="n" aria-label="N key">N</div>
+                            <div class="key w-1" data-key="m" aria-label="M key">M</div>
+                            <div class="key w-1" data-key="," aria-label="Comma and less than key"><span
+                                    class="key-label">&lt;</span><span class="key-sublabel">,</span></div>
+                            <div class="key w-1" data-key="." aria-label="Period and greater than key"><span
+                                    class="key-label">&gt;</span><span class="key-sublabel">.</span></div>
+                            <div class="key w-1" data-key="/" aria-label="Slash and question mark key"><span
+                                    class="key-label">?</span><span class="key-sublabel">/</span></div>
+                            <div class="key w-2u75" data-key="ShiftRight" aria-label="Right Shift key">Shift</div>
+                        </div>
+
+                        <!-- Bottom Row -->
+                        <div class="key-row">
+                            <div class="key w-1u25" data-key="ControlLeft" aria-label="Left Control key">Ctrl</div>
+                            <div class="key w-1u25" data-key="MetaLeft" aria-label="Left Windows key">Win</div>
+                            <div class="key w-1u25" data-key="AltLeft" aria-label="Left Alt key">Alt</div>
+                            <div class="key w-space" data-key=" " aria-label="Spacebar">Space</div>
+                            <div class="key w-1u25" data-key="AltRight" aria-label="Right Alt key">Alt</div>
+                            <div class="key w-1u25" data-key="MetaRight" aria-label="Right Windows key">Win</div>
+                            <div class="key w-1u25" data-key="ContextMenu" aria-label="Context Menu key">Fn</div>
+                            <div class="key w-1u25" data-key="ControlRight" aria-label="Right Control key">Ctrl</div>
+                        </div>
+                    </div>
+
+                    <!-- Right Section -->
+                    <div class="right-section">
+                        <!-- Navigation + Arrows -->
+                        <div>
+                            <div class="nav-cluster">
+                                <div class="nav-row">
+                                    <div class="key w-1" data-key="PrintScreen" aria-label="Print Screen key">Prt</div>
+                                    <div class="key w-1" data-key="ScrollLock" aria-label="Scroll Lock key">Scr</div>
+                                    <div class="key w-1" data-key="Pause" aria-label="Pause key">Pau</div>
+                                </div>
+                                <div class="nav-row">
+                                    <div class="key w-1" data-key="Insert" aria-label="Insert key">Ins</div>
+                                    <div class="key w-1" data-key="Home" aria-label="Home key">Hom</div>
+                                    <div class="key w-1" data-key="PageUp" aria-label="Page Up key">PgU</div>
+                                </div>
+                                <div class="nav-row">
+                                    <div class="key w-1" data-key="Delete" aria-label="Delete key">Del</div>
+                                    <div class="key w-1" data-key="End" aria-label="End key">End</div>
+                                    <div class="key w-1" data-key="PageDown" aria-label="Page Down key">PgD</div>
+                                </div>
+                            </div>
+
+                            <div class="arrow-cluster">
+                                <div class="arrow-top">
+                                    <div class="key w-1" data-key="ArrowUp" aria-label="Up Arrow key">↑</div>
+                                </div>
+                                <div class="arrow-bottom">
+                                    <div class="key w-1" data-key="ArrowLeft" aria-label="Left Arrow key">←</div>
+                                    <div class="key w-1" data-key="ArrowDown" aria-label="Down Arrow key">↓</div>
+                                    <div class="key w-1" data-key="ArrowRight" aria-label="Right Arrow key">→</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Numpad -->
+                        <div class="numpad">
+                            <div class="numpad-row">
+                                <div class="key w-1" data-key="NumLock" aria-label="Num Lock key">Num</div>
+                                <div class="key w-1" data-key="NumpadDivide" aria-label="Numpad Divide key">/</div>
+                                <div class="key w-1" data-key="NumpadMultiply" aria-label="Numpad Multiply key">*</div>
+                                <div class="key w-1" data-key="NumpadSubtract" aria-label="Numpad Subtract key">-</div>
+                            </div>
+                            <div style="display: flex; gap: 4px;">
+                                <div class="numpad-grid">
+                                    <div class="key w-1" data-key="Numpad7" aria-label="Numpad 7 key">7</div>
+                                    <div class="key w-1" data-key="Numpad8" aria-label="Numpad 8 key">8</div>
+                                    <div class="key w-1" data-key="Numpad9" aria-label="Numpad 9 key">9</div>
+                                    <div class="key w-1" data-key="Numpad4" aria-label="Numpad 4 key">4</div>
+                                    <div class="key w-1" data-key="Numpad5" aria-label="Numpad 5 key">5</div>
+                                    <div class="key w-1" data-key="Numpad6" aria-label="Numpad 6 key">6</div>
+                                    <div class="key w-1" data-key="Numpad1" aria-label="Numpad 1 key">1</div>
+                                    <div class="key w-1" data-key="Numpad2" aria-label="Numpad 2 key">2</div>
+                                    <div class="key w-1" data-key="Numpad3" aria-label="Numpad 3 key">3</div>
+                                    <div class="key key-numpad-0" data-key="Numpad0" aria-label="Numpad 0 key">0</div>
+                                    <div class="key w-1" data-key="NumpadDecimal"
+                                        style="position: relative; left: 50px;" aria-label="Numpad Decimal key">.</div>
+                                </div>
+                                <div class="numpad-tall-keys">
+                                    <div class="key key-numpad-plus" data-key="NumpadAdd" aria-label="Numpad Add key">+
+                                    </div>
+                                    <div class="key key-numpad-enter" data-key="NumpadEnter"
+                                        aria-label="Numpad Enter key">Ent</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Controls Section -->
+            <section class="controls" aria-labelledby="controls-heading">
+                <h2 id="controls-heading" class="visually-hidden">Test Controls</h2>
+                <button class="reset-btn" onclick="resetKeyboard()">Reset Test</button>
+            </section>
+
+            <!-- Instructions Section -->
+            <section class="instructions" aria-labelledby="instructions-heading">
+                <h2 id="instructions-heading">How to Use This Keyboard Tester</h2>
+                <p>Press any key on your physical keyboard. Keys will light up <span
+                        style="color: #10b981; font-weight: 600;">green</span> when pressed and turn <span
+                        style="color: #3b82f6; font-weight: 600;">blue</span> after being tested. Perfect for checking
+                    keyboard functionality!</p>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer role="contentinfo">
+            <div class="footer-links">
+                <a href="/">Home</a> |
+                <a href="/privacy.html">Privacy Policy</a> |
+                <a href="/contact.html">Contact</a>
+            </div>
+            <p class="copyright">© 2025 KeyboardCheckup. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="main.js"></script>
+
+    <!-- Add CSS for accessibility improvements -->
+    <style>
+        /* Accessibility improvements */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            text-decoration: none;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus styles for better accessibility */
+        .key:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .reset-btn:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 0;
+            color: #8b8b9e;
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #8b8b9e;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #e0e0e0;
+        }
+    </style>
+</body>
+
+</html>

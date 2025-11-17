@@ -1,0 +1,325 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            min-height: 100vh;
+        
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #8b8b9e;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3e 100%);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .stat-label {
+            color: #8b8b9e;
+            font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .keyboard-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            background: #1a1a24;
+            border-radius: 15px;
+            padding: clamp(15px, 3vw, 30px);
+            border: 2px solid #2a2a3e;
+            box-shadow: 0 20px 60px rgba(31, 31, 31, 0.6);
+            max-width: 1600px;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        .keyboard-layout {
+            display: flex;
+            gap: 15px;
+            min-width: fit-content;
+        }
+
+        .main-keyboard {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .key-row {
+            display: flex;
+            gap: 4px;
+        }
+
+        .key {
+            background: linear-gradient(145deg, #2d2d42, #1e1e2e);
+            border: 1.5px solid rgba(255,255,255,0.12);
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-size: 11px;
+            font-weight: 600;
+            height: 48px;
+            width: 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+            user-select: none;
+            white-space: nowrap;
+            line-height: 1.1;
+            padding: 2px;
+        }
+
+        .key-label {
+            font-size: 0.85em;
+        }
+
+        .key-sublabel {
+            font-size: 0.7em;
+            opacity: 0.6;
+            margin-top: 1px;
+        }
+
+        .key:active {
+            transform: translateY(1px);
+        }
+
+        .key.pressed {
+            background: linear-gradient(145deg, #10b981, #059669);
+            border-color: #10b981;
+            color: white;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+            transform: translateY(1px);
+        }
+
+        .key.tested {
+            background: linear-gradient(145deg, #3b82f6, #2563eb);
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        /* Function row gaps */
+        .fn-gap-small { width: 8px; }
+        .fn-gap-large { width: 24px; }
+
+        /* Key widths */
+        .w-esc { width: 48px; }
+        .w-fn { width: 48px; }
+        .w-1 { width: 48px; }
+        .w-1u25 { width: 62px; }
+        .w-1u5 { width: 72px; }
+        .w-1u75 { width: 84px; }
+        .w-2 { width: 96px; }
+        .w-2u25 { width: 108px; }
+        .w-2u75 { width: 132px; }
+        .w-space { width: 300px; }
+
+        /* Right section layout */
+        .right-section {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-cluster {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-row {
+            display: flex;
+            gap: 4px;
+        }
+
+        .arrow-cluster {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 58px;
+        }
+
+        .arrow-top {
+            display: flex;
+            justify-content: center;
+        }
+
+        .arrow-bottom {
+            display: flex;
+            gap: 4px;
+        }
+
+        /* Numpad */
+        .numpad {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .numpad-row {
+            display: flex;
+            gap: 4px;
+        }
+
+        .numpad-row-tall {
+            display: flex;
+            gap: 4px;
+            height: 101px;
+        }
+
+        .numpad-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 48px);
+            grid-template-rows: repeat(4, 48px);
+            gap: 4px;
+        }
+
+        .numpad-tall-keys {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .key-numpad-plus {
+            height: 101px;
+            width: 48px;
+        }
+
+        .key-numpad-enter {
+            height: 101px;
+            width: 48px;
+        }
+
+        .key-numpad-0 {
+            width: 100px;
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: clamp(12px, 2vw, 16px) clamp(30px, 5vw, 48px);
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 25px auto 0;
+            display: block;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s;
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(102, 126, 234, 0.6);
+        }
+
+        .instructions {
+            background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3e 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .instructions h3 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+        }
+
+        .instructions p {
+            color: #8b8b9e;
+            line-height: 1.6;
+            font-size: clamp(0.9rem, 2vw, 1.05rem);
+        }
+
+        @media (max-width: 1400px) {
+            .keyboard-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px 5px;
+            }
+
+            .keyboard-wrapper {
+                padding: 15px 10px;
+            }
+
+            .stats-bar {
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 12px 8px;
+            }
+        }
